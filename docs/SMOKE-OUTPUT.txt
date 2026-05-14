@@ -1,0 +1,53 @@
+engine: status=ok version=0.55.4 db=true
+{
+  "subtotal": "100.00",
+  "taxTotal": "9.0250",
+  "lines": [
+    {
+      "amount": "100.00",
+      "category": "general",
+      "tax": "9.0250",
+      "ratePct": "9.02500",
+      "jurisdictions": [
+        {
+          "type": "city",
+          "name": "Minneapolis",
+          "ratePct": "0.50000",
+          "tax": "0.5000"
+        },
+        {
+          "type": "county",
+          "name": "Hennepin County",
+          "ratePct": "0.15000",
+          "tax": "0.1500"
+        },
+        {
+          "type": "state",
+          "name": "Minnesota",
+          "ratePct": "6.87500",
+          "tax": "6.8750"
+        },
+        {
+          "type": "district",
+          "name": "Hennepin County Transit Sales Tax",
+          "ratePct": "0.50000",
+          "tax": "0.5000"
+        },
+        {
+          "type": "district",
+          "name": "Metro Area Transportation Sales Tax",
+          "ratePct": "0.75000",
+          "tax": "0.7500"
+        },
+        {
+          "type": "district",
+          "name": "Metro Area Sales and Use Tax for Housing",
+          "ratePct": "0.25000",
+          "tax": "0.2500"
+        }
+      ],
+      "squareUid": "smoke_line_1"
+    }
+  ],
+  "disclaimer": "Tax calculations are provided as-is for convenience. The merchant is solely responsible for tax-collection accuracy and remittance to the appropriate jurisdictions. Verify against your state Department of Revenue before remitting."
+}

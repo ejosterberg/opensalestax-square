@@ -1,0 +1,42 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm/
+
+# Build output
+dist/
+build/
+*.tsbuildinfo
+
+# Test / coverage
+coverage/
+.nyc_output/
+junit.xml
+
+# Editors / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local env
+.env
+.env.*
+!.env.example
+
+# NPM pack tarballs
+*.tgz
+
+# SonarQube scanner work dir
+.scannerwork/
+
+# Smoke / scratch
+smoke.mjs
+scratch/
+
+# Local Claude session state (per-machine permissions)
+.claude/settings.local.json
