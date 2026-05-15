@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-05-15
+
+Graduate alpha → stable. No code changes vs `0.1.0-alpha.2` (already
+production-quality: 77 Jest tests, all CI green across the alpha
+cycle, SDK-backed since alpha.2). Cuts the `-alpha` suffix and
+promotes to `latest` on npm.
+
+### Notes
+
+- Public API surface is the v0.1 shape locked in
+  `specs/spec.md`. Future minor versions can extend; breaking changes
+  require a major bump per SemVer.
+- Webhook handler (Shape 2 from spec.md) remains v0.2 scope.
+
 ## [0.1.0-alpha.2] - 2026-05-14
 
 Drop the embedded `OpenSalesTaxClient` + `validateEngineUrl` in favor
