@@ -1,50 +1,68 @@
 name: release
 
+# Publishes the Square library to NPM. Two triggers:
+#   * workflow_dispatch — manual button (rare).
+#   * push: tags: ['v*.*.*', 'v*.*.*-*'] — automatic publish on tag push.
+#     The pre-release glob covers v0.1.0-alpha.1 / -beta.1 etc.
+#
+# Auth: NPM Trusted Publishing (OIDC). Configure on npmjs.com:
+#   https://www.npmjs.com/package/@ejosterberg/opensalestax-square/access
+#   organization: ejosterberg
+#   repository:   opensalestax-square
+#   workflow:     release.yml
+#   environment:  npm-publish        (must match the `environment:` below)
+#
+# Matching GitHub Environment required:
+#   https://github.com/ejosterberg/opensalestax-square/settings/environments
+#   name: npm-publish  (no protection rules required)
+#
+# See ~/.claude/npm-trusted-publishing-playbook.md for setup + failure-mode
+# catalog.
+
 on:
-  push:
-    tags: ["v*.*.*", "v*.*.*-*"]
   workflow_dispatch:
     inputs:
       ref:
         description: "Tag or branch to publish"
         required: true
         default: "main"
+  push:
+    tags: ["v*.*.*", "v*.*.*-*"]
+
+permissions:
+  contents: read
+  id-token: write   # required for OIDC trusted publishing + provenance
 
 jobs:
   publish:
+    name: publish to NPM
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write   # required for npm OIDC + provenance
-
+    timeout-minutes: 10
+    # Binds the job to the `npm-publish` GitHub Environment so the OIDC
+    # token's `environment` claim is populated.
+    environment: npm-publish
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: ${{ github.event.inputs.ref || github.ref }}
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
-          node-version: "20"
+          # Node 24 LTS ships npm 11.x. Trusted Publishing requires
+          # npm >= 11.5; Node 22's npm 10.9.7 silently 404s the publish
+          # handshake. See playbook for the reproducer.
+          node-version: "24"
           registry-url: "https://registry.npmjs.org"
           cache: npm
 
-      - name: Install
+      - name: Install dependencies
         run: npm ci
 
-      - name: Lint
-        run: npm run lint
-
-      - name: Type check
-        run: npm run typecheck
-
-      - name: Test
-        run: npm test
-
-      - name: Audit (production deps, high+)
-        run: npm run audit
+      - name: Quality gate (lint + typecheck + tests + audit)
+        run: npm run check
 
       - name: Build
         run: npm run build
 
-      - name: Publish to npm (OIDC, provenance)
+      - name: Publish (trusted publishing + provenance)
         run: npm publish --provenance --access public
