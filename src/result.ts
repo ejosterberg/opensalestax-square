@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
-import type { CalculateResponse } from './client';
+import type { CalculationResult } from '@ejosterberg/opensalestax';
 import type { SquareOrder } from './types';
 
 /**
@@ -105,7 +105,7 @@ export const CALCULATION_DISCLAIMER =
   'jurisdictions. Verify against your state Department of Revenue before remitting.';
 
 export function buildResult(
-  engineResponse: CalculateResponse,
+  engineResponse: CalculationResult,
   squareUids: Array<string | undefined>,
 ): TaxCalculationResult {
   const lines: TaxCalculationLine[] = engineResponse.lines.map((line, idx) => {
@@ -114,11 +114,11 @@ export function buildResult(
       amount: line.amount,
       category: line.category,
       tax: line.tax,
-      ratePct: line.rate_pct,
+      ratePct: line.ratePct,
       jurisdictions: (line.jurisdictions ?? []).map((j) => ({
         type: j.type,
         name: j.name,
-        ratePct: j.rate_pct,
+        ratePct: j.ratePct,
         tax: j.tax,
       })),
     };
@@ -129,7 +129,7 @@ export function buildResult(
 
   return {
     subtotal: engineResponse.subtotal,
-    taxTotal: engineResponse.tax_total,
+    taxTotal: engineResponse.taxTotal,
     lines,
     disclaimer: CALCULATION_DISCLAIMER,
   };

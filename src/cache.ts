@@ -2,7 +2,7 @@
 
 import { createHash } from 'node:crypto';
 
-import type { CalculateLineItem } from './client';
+import type { LineItem } from '@ejosterberg/opensalestax';
 
 /**
  * Tiny in-memory LRU cache with TTL, used to short-circuit duplicate
@@ -85,7 +85,7 @@ export class InMemoryLruCache<V> implements CacheLike<V> {
 export function buildCacheKey(
   zip5: string,
   country: string,
-  line_items: CalculateLineItem[],
+  line_items: LineItem[],
 ): string {
   const canonical = JSON.stringify({
     zip5,

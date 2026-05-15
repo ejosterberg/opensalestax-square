@@ -2,7 +2,7 @@
 
 import { resolveInvoiceAddress } from './address';
 import { calculateForSquareOrder } from './calculate-order';
-import type { OpenSalesTaxClient } from './client';
+import type { OpenSalesTaxClient } from '@ejosterberg/opensalestax';
 import { MissingOrderError, UnsupportedSourceError } from './errors';
 import { isSupportedCountry, isSupportedCurrency } from './gates';
 import { buildSkippedResult, type CalculateInvoiceOptions, type TaxCalculationResult } from './result';

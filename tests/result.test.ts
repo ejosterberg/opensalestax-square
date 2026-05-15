@@ -1,24 +1,25 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { buildResult, buildSkippedResult, CALCULATION_DISCLAIMER } from '../src/result';
-import type { CalculateResponse } from '../src/client';
+import type { CalculationResult } from '@ejosterberg/opensalestax';
 
-const sampleEngineResponse: CalculateResponse = {
+const sampleEngineResponse: CalculationResult = {
   subtotal: '100.00',
-  tax_total: '7.875',
+  taxTotal: '7.875',
   lines: [
     {
       amount: '100.00',
       category: 'general',
       tax: '7.875',
-      rate_pct: '7.875',
+      ratePct: '7.875',
       jurisdictions: [
-        { type: 'STATE', name: 'Minnesota', rate_pct: '6.875', tax: '6.875' },
-        { type: 'CITY', name: 'Minneapolis', rate_pct: '0.500', tax: '0.500' },
+        { type: 'STATE', name: 'Minnesota', ratePct: '6.875', tax: '6.875' },
+        { type: 'CITY', name: 'Minneapolis', ratePct: '0.500', tax: '0.500' },
       ],
       note: null,
     },
   ],
+  disclaimer: 'Calculation only.',
 };
 
 describe('buildResult', () => {
@@ -52,20 +53,21 @@ describe('buildResult', () => {
   });
 
   it('handles missing jurisdictions array', () => {
-    const resp: CalculateResponse = {
+    const resp: CalculationResult = {
       subtotal: '0',
-      tax_total: '0',
+      taxTotal: '0',
       lines: [
         {
           amount: '0',
           category: 'general',
           tax: '0',
-          rate_pct: '0',
+          ratePct: '0',
           // intentionally cast around the type to drop jurisdictions
-          ...({} as Record<string, never>),
           jurisdictions: undefined as unknown as [],
+          note: null,
         },
       ],
+      disclaimer: '',
     };
     const got = buildResult(resp, [undefined]);
     expect(got.lines[0]?.jurisdictions).toEqual([]);

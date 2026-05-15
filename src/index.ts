@@ -27,28 +27,41 @@
 
 export { calculateForSquareOrder } from './calculate-order';
 export { calculateForSquareInvoice } from './calculate-invoice';
+
+// Re-export the SDK's public surface so consumers of this library can
+// access types and the client class without an explicit
+// @ejosterberg/opensalestax dep. Names mirror the SDK as of v0.1.0;
+// the old `CalculateRequest` / `CalculateResponse` / `CalculateLineItem`
+// types from the v0.1.0-alpha.1 embedded client have been replaced by
+// `Address` / `LineItem` / `CalculationResult`.
 export {
   OpenSalesTaxClient,
-  OpenSalesTaxApiError,
-  type OpenSalesTaxClientOptions,
-  type CalculateRequest,
-  type CalculateResponse,
+  OpenSalesTaxAPIError,
+  OpenSalesTaxNetworkError,
+  UrlValidationError,
+  validateEngineUrl,
+  type Address,
   type CalculatedLine,
-  type CalculateLineItem,
-  type JurisdictionRate,
+  type CalculationResult,
   type HealthResponse,
-} from './client';
+  type JurisdictionRate,
+  type LineItem,
+  type OpenSalesTaxClientOptions,
+} from '@ejosterberg/opensalestax';
+
+// Square-specific domain errors. Note: the SDK also exports a
+// `NonUSDError`, but it's a marker class with a different
+// constructor signature. The Square library has historically
+// exposed its own `NonUSDError(currency, sourceId)` shape, and we
+// preserve that — consumers of THIS library import NonUSDError from
+// here (it shadows the SDK's). If you need the SDK's marker,
+// import it explicitly from `@ejosterberg/opensalestax`.
 export {
   MissingAddressError,
   MissingOrderError,
   NonUSDError,
   UnsupportedSourceError,
 } from './errors';
-export {
-  UrlValidationError,
-  validateEngineUrl,
-  type ValidateOptions,
-} from './url-validator';
 export {
   InMemoryLruCache,
   type CacheLike,

@@ -1,6 +1,6 @@
 {
   "name": "@ejosterberg/opensalestax-square",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "Server-side TypeScript library that computes destination-based US sales tax for Square Orders and Invoices via the self-hosted OpenSalesTax engine.",
   "license": "Apache-2.0",
   "author": "Eric Osterberg <ejosterberg@gmail.com>",
@@ -33,6 +33,9 @@
   ],
   "engines": {
     "node": ">=20"
+  },
+  "dependencies": {
+    "@ejosterberg/opensalestax": "^0.1.0"
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",

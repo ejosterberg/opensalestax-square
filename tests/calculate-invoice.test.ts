@@ -3,7 +3,7 @@
 import nock from 'nock';
 
 import { calculateForSquareInvoice } from '../src/calculate-invoice';
-import { OpenSalesTaxClient } from '../src/client';
+import { OpenSalesTaxClient } from '@ejosterberg/opensalestax';
 import { MissingOrderError, UnsupportedSourceError } from '../src/errors';
 import type { SquareInvoice, SquareOrder } from '../src/types';
 
@@ -48,8 +48,10 @@ function engineOk() {
         jurisdictions: [
           { type: 'STATE', name: 'Minnesota', rate_pct: '6.875', tax: '6.875' },
         ],
+        note: null,
       },
     ],
+    disclaimer: 'Calculation only.',
   };
 }
 

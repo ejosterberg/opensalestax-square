@@ -7,6 +7,60 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0-alpha.2] - 2026-05-14
+
+Drop the embedded `OpenSalesTaxClient` + `validateEngineUrl` in favor
+of the standalone `@ejosterberg/opensalestax` SDK (v0.1.0+).
+Constitution §6 / playbook trigger ("extract when a third TS
+connector lands" — we have four).
+
+No behavior change for consumers of this library. The HTTP wire
+contract with the OpenSalesTax engine is identical; the SSRF
+defense + URL validator port verbatim into the SDK.
+
+### Changed
+- Depend on `@ejosterberg/opensalestax@^0.1.0` instead of the
+  embedded `src/client.ts` + `src/url-validator.ts`.
+- Property accesses moved to the SDK's camelCase TS surface:
+  `rate_pct` → `ratePct`, `tax_total` → `taxTotal`.
+- Internal `CalculateRequest` / `CalculateResponse` /
+  `CalculateLineItem` types replaced by `Address` / `LineItem` /
+  `CalculationResult`.
+- Error class rename: `OpenSalesTaxApiError` (with `.status`) →
+  `OpenSalesTaxAPIError` (with `.statusCode`).
+- `src/index.ts` re-exports the SDK's public surface
+  (`OpenSalesTaxClient`, `OpenSalesTaxAPIError`,
+  `OpenSalesTaxNetworkError`, `UrlValidationError`,
+  `validateEngineUrl`, `Address`, `LineItem`,
+  `CalculationResult`, etc.) so downstream consumers that
+  imported from this library keep working with one rename.
+
+### Removed
+- `src/client.ts` and `src/url-validator.ts` — now in the SDK.
+- `tests/client.test.ts` and `tests/url-validator.test.ts` — the
+  SDK has its own test suite for these.
+
+### Migration
+
+For most consumers: no change. The library's public API
+(`calculateForSquareOrder`, `calculateForSquareInvoice`) is
+unchanged.
+
+If your code imported types directly from this library, the only
+load-bearing rename is the API error class:
+
+```diff
+-import { OpenSalesTaxApiError } from '@ejosterberg/opensalestax-square';
++import { OpenSalesTaxAPIError } from '@ejosterberg/opensalestax-square';
+-} catch (e: OpenSalesTaxApiError) { console.log(e.status); }
++} catch (e: OpenSalesTaxAPIError) { console.log(e.statusCode); }
+```
+
+The library's `NonUSDError` (`(currency, sourceId)` constructor) is
+unchanged. The SDK exports its own `NonUSDError` marker class with
+a different signature; consumers importing `NonUSDError` from
+THIS library get the original Square-domain class.
+
 ## [0.1.0-alpha.1] - 2026-05-13
 
 ### Added

@@ -52,9 +52,16 @@ async function main(): Promise<void> {
     timeoutMs: 10000,
   });
 
+  // healthCheck() never throws — returns a discriminated union.
   const health = await client.healthCheck();
   // eslint-disable-next-line no-console
-  console.log(`engine: status=${health.status} version=${health.version} db=${health.database_connected}`);
+  if (health.ok) {
+    console.log(
+      `engine: ok=true version=${health.version} db=${health.databaseConnected} rtt=${health.rttMs}ms`,
+    );
+  } else {
+    console.log(`engine: ok=false rtt=${health.rttMs}ms error=${health.error}`);
+  }
 
   const result = await calculateForSquareOrder(order, client, { cache: false });
 

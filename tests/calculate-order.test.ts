@@ -3,7 +3,7 @@
 import nock from 'nock';
 
 import { calculateForSquareOrder } from '../src/calculate-order';
-import { OpenSalesTaxClient } from '../src/client';
+import { OpenSalesTaxClient } from '@ejosterberg/opensalestax';
 import { MissingAddressError } from '../src/errors';
 import type { SquareOrder } from '../src/types';
 
@@ -49,8 +49,10 @@ function engineCalc(jurisdictions: Array<{ type: string; name: string; rate_pct:
         tax: '7.875',
         rate_pct: '7.875',
         jurisdictions: jurisdictions.map((j) => ({ ...j, tax: '0' })),
+        note: null,
       },
     ],
+    disclaimer: 'Calculation only.',
   };
 }
 

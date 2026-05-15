@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
-import type { CalculateLineItem } from './client';
+import type { LineItem } from '@ejosterberg/opensalestax';
 import { NonUSDError, UnsupportedSourceError } from './errors';
 import { centsToDecimalString, DEFAULT_CATEGORY, SUPPORTED_CURRENCY } from './gates';
 import type { CategoryByCatalogObjectId } from './result';
@@ -13,7 +13,7 @@ export interface ExtractLinesOptions {
 
 export interface ExtractedLines {
   /** Engine-formatted line_items, in the same order as Square's input. */
-  line_items: CalculateLineItem[];
+  line_items: LineItem[];
   /** Square line UID per engine line — for caller-side correlation. */
   squareUids: Array<string | undefined>;
   /** UIDs of lines we skipped because they had no resolvable amount. */
@@ -51,7 +51,7 @@ export function extractOrderLines(
   const categoryMap = options.categoryByCatalogObjectId;
   const orderId = order.id ?? '(unknown)';
 
-  const line_items: CalculateLineItem[] = [];
+  const line_items: LineItem[] = [];
   const squareUids: Array<string | undefined> = [];
   const skippedUnpriced: string[] = [];
 
@@ -69,7 +69,7 @@ export function extractOrderLines(
 }
 
 type ConvertedLine =
-  | { kind: 'ok'; item: CalculateLineItem }
+  | { kind: 'ok'; item: LineItem }
   | { kind: 'skipped'; uid: string | undefined };
 
 function convertLine(

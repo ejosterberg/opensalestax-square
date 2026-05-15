@@ -1,7 +1,11 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { resolveOrderAddress } from './address';
-import type { CalculateLineItem, CalculateResponse, OpenSalesTaxClient } from './client';
+import type {
+  CalculationResult,
+  LineItem,
+  OpenSalesTaxClient,
+} from '@ejosterberg/opensalestax';
 import { buildCacheKey, InMemoryLruCache } from './cache';
 import { isSupportedCountry, isSupportedCurrency } from './gates';
 import { extractOrderLines, type ExtractLinesOptions } from './lines';
@@ -131,17 +135,17 @@ function writeCache(cache: OrderCacheLike | null, key: string | null, value: Tax
 }
 
 type EngineCallResult =
-  | { kind: 'ok'; value: CalculateResponse }
+  | { kind: 'ok'; value: CalculationResult }
   | { kind: 'error'; value: TaxCalculationResult };
 
 async function callEngine(
   client: OpenSalesTaxClient,
   zip5: string,
-  line_items: CalculateLineItem[],
+  line_items: LineItem[],
   failHard: boolean,
 ): Promise<EngineCallResult> {
   try {
-    const value = await client.calculate({ address: { zip5 }, line_items });
+    const value = await client.calculate({ zip5 }, line_items);
     return { kind: 'ok', value };
   } catch (err) {
     if (failHard) throw err;
