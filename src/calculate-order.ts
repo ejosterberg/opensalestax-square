@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0 OR GPL-2.0-or-later
 
 import { resolveOrderAddress } from './address';
 import type {
@@ -42,8 +42,8 @@ interface OrderCacheLike {
  * structured tax breakdown the caller can write back to Square's
  * `Order.taxes[]` via `UpdateOrder`.
  *
- * USD-only / US-only / valid-ZIP-only — non-matching orders return a
- * zero-tax result with `skippedReason` populated (constitution §8 —
+ * USD-only / US-only / valid-ZIP-only â€” non-matching orders return a
+ * zero-tax result with `skippedReason` populated (constitution Â§8 â€”
  * fail-soft). Engine errors also fail-soft by default; pass
  * `failHard: true` to surface them as exceptions.
  *
@@ -52,7 +52,7 @@ interface OrderCacheLike {
  * remittance to the appropriate jurisdictions. Verify against your
  * state Department of Revenue before remitting.
  *
- * @param order Square Order — already fetched by the caller
+ * @param order Square Order â€” already fetched by the caller
  * @param client OpenSalesTax engine client
  * @param options Optional cache / category / fail-hard overrides
  */

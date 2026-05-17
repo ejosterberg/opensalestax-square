@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0 OR GPL-2.0-or-later
 
 /**
  * Live smoke test against the OpenSalesTax engine.
@@ -7,7 +7,7 @@
  *   OSTAX_API_URL=http://10.32.161.126:8080 npx ts-node tools/smoke-engine.ts
  *
  * Default `apiUrl` is the workshop engine at 10.32.161.126:8080 which
- * lives on RFC-1918 → we pass `allowPrivate: true` so the SSRF guard
+ * lives on RFC-1918 â†’ we pass `allowPrivate: true` so the SSRF guard
  * doesn't reject it. Production engines on public URLs should leave
  * `allowPrivate` at its `false` default.
  */
@@ -52,7 +52,7 @@ async function main(): Promise<void> {
     timeoutMs: 10000,
   });
 
-  // healthCheck() never throws — returns a discriminated union.
+  // healthCheck() never throws â€” returns a discriminated union.
   const health = await client.healthCheck();
   // eslint-disable-next-line no-console
   if (health.ok) {

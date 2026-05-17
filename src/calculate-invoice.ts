@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0 OR GPL-2.0-or-later
 
 import { resolveInvoiceAddress } from './address';
 import { calculateForSquareOrder } from './calculate-order';
@@ -14,9 +14,9 @@ import type { SquareInvoice, SquareOrder } from './types';
  * Square Invoices reference an Order by ID; we need that Order to read
  * line items. Three paths:
  *
- *   1. Caller pre-attached `invoice.order` → we use it directly.
- *   2. Caller passes `options.fetchOrder(orderId)` → we call it.
- *   3. Neither → throw `MissingOrderError`.
+ *   1. Caller pre-attached `invoice.order` â†’ we use it directly.
+ *   2. Caller passes `options.fetchOrder(orderId)` â†’ we call it.
+ *   3. Neither â†’ throw `MissingOrderError`.
  *
  * Once the order is in hand, the call defers to `calculateForSquareOrder`
  * for all the gate / extraction / engine logic. The invoice's
@@ -53,7 +53,7 @@ export async function calculateForSquareInvoice(
   }
 
   // If the order yields no shipping fulfillment, fall back to the
-  // invoice's primary_recipient.address — and short-circuit on the
+  // invoice's primary_recipient.address â€” and short-circuit on the
   // country gate before we even try the order path's extraction.
   try {
     // Try invoice-level resolution first to honor the invoice

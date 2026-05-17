@@ -1,11 +1,11 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0 OR GPL-2.0-or-later
 
 /**
  * Minimal Square shapes consumed by this library.
  *
  * We deliberately hand-roll these instead of depending on the `squareup`
  * SDK so this library has zero peer / runtime deps. Only fields we read
- * are typed; callers can pass full Square SDK objects — extra properties
+ * are typed; callers can pass full Square SDK objects â€” extra properties
  * are ignored. Use `import type` from `squareup` if you want full types
  * on the caller side.
  *
@@ -78,7 +78,7 @@ export interface SquareInvoice {
   id?: string;
   order_id?: string;
   /**
-   * Optional pre-expanded order — if the caller already retrieved the
+   * Optional pre-expanded order â€” if the caller already retrieved the
    * referenced order via Square's SDK, attaching it here avoids the
    * need to pass `options.fetchOrder`.
    */

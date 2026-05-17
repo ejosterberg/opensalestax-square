@@ -1,9 +1,9 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0 OR GPL-2.0-or-later
 
 /**
  * Eligibility gates: USD currency, US country, valid ZIP.
  *
- * Gates return a boolean — caller wraps in a zero-tax result with the
+ * Gates return a boolean â€” caller wraps in a zero-tax result with the
  * matching `skippedReason` when any gate fails. We deliberately don't
  * throw; gates are control flow, not errors.
  */
@@ -33,7 +33,7 @@ export function normalizeZip(postal: string): string {
   return postal.slice(0, 5);
 }
 
-/** Cents → "X.XX" decimal string. No thousands separator. */
+/** Cents â†’ "X.XX" decimal string. No thousands separator. */
 export function centsToDecimalString(cents: number): string {
   const safe = Number.isFinite(cents) ? Math.round(cents) : 0;
   const sign = safe < 0 ? '-' : '';

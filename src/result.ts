@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0 OR GPL-2.0-or-later
 
 import type { CalculationResult } from '@ejosterberg/opensalestax';
 import type { SquareOrder } from './types';
@@ -6,9 +6,9 @@ import type { SquareOrder } from './types';
 /**
  * Public result shape. Mirrors the engine's `/v1/calculate` response
  * with two additions:
- *   - `skippedReason` — if the call short-circuited (non-USD, non-US,
+ *   - `skippedReason` â€” if the call short-circuited (non-USD, non-US,
  *     missing ZIP, engine error), this string tells the caller why.
- *   - `engineError` — when an engine call failed in fail-soft mode,
+ *   - `engineError` â€” when an engine call failed in fail-soft mode,
  *     the original error message (no stack) lands here for logging.
  */
 export interface TaxJurisdiction {
@@ -45,7 +45,7 @@ export interface TaxCalculationResult {
   skippedReason?: SkipReason;
   /** Engine error message in fail-soft mode. */
   engineError?: string;
-  /** Always present. The constitution §10 disclaimer. */
+  /** Always present. The constitution Â§10 disclaimer. */
   disclaimer: string;
 }
 
@@ -73,9 +73,9 @@ export interface CalculationOptions {
 
   /**
    * Cache control:
-   *   - `undefined` / `true` → use a process-local default LRU
-   *   - `false` → disable caching
-   *   - object → use this CacheLike implementation
+   *   - `undefined` / `true` â†’ use a process-local default LRU
+   *   - `false` â†’ disable caching
+   *   - object â†’ use this CacheLike implementation
    */
   cache?: CacheControl;
 }
@@ -91,7 +91,7 @@ export type CacheControl =
 export interface CalculateInvoiceOptions extends CalculationOptions {
   /**
    * Resolver for `invoice.order_id` when the invoice doesn't already
-   * carry a `.order`. Library never calls Square's API itself — this
+   * carry a `.order`. Library never calls Square's API itself â€” this
    * lets the caller plug in their preferred Square SDK.
    */
   fetchOrder?: (orderId: string) => Promise<SquareOrder>;

@@ -2,7 +2,7 @@
 
 [![ci](https://github.com/ejosterberg/opensalestax-square/actions/workflows/ci.yml/badge.svg)](https://github.com/ejosterberg/opensalestax-square/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/@ejosterberg/opensalestax-square.svg)](https://www.npmjs.com/package/@ejosterberg/opensalestax-square)
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![License: Apache-2.0 OR GPL-2.0-or-later](https://img.shields.io/badge/License-Apache_2.0_OR_GPL_2.0--or--later-blue.svg)](LICENSE)
 
 Server-side TypeScript library that computes **destination-based US sales tax**
 for **Square Orders and Invoices** via the self-hosted
@@ -183,7 +183,7 @@ Reporting vulnerabilities: see [`SECURITY.md`](SECURITY.md).
 ## Contributing
 
 DCO sign-off mandatory on every commit (`git commit -s`). See
-[`CONTRIBUTING.md`](CONTRIBUTING.md). Apache-2.0 licensed.
+[`CONTRIBUTING.md`](CONTRIBUTING.md). Dual-licensed under your choice of Apache-2.0 OR GPL-2.0-or-later. See [`LICENSE`](LICENSE).
 
 ## Related projects
 

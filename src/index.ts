@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0 OR GPL-2.0-or-later
 
 /**
  * Public entry point for `@ejosterberg/opensalestax-square`.
@@ -53,7 +53,7 @@ export {
 // `NonUSDError`, but it's a marker class with a different
 // constructor signature. The Square library has historically
 // exposed its own `NonUSDError(currency, sourceId)` shape, and we
-// preserve that — consumers of THIS library import NonUSDError from
+// preserve that â€” consumers of THIS library import NonUSDError from
 // here (it shadows the SDK's). If you need the SDK's marker,
 // import it explicitly from `@ejosterberg/opensalestax`.
 export {

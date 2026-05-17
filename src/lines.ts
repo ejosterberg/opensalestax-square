@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0 OR GPL-2.0-or-later
 
 import type { LineItem } from '@ejosterberg/opensalestax';
 import { NonUSDError, UnsupportedSourceError } from './errors';
@@ -14,7 +14,7 @@ export interface ExtractLinesOptions {
 export interface ExtractedLines {
   /** Engine-formatted line_items, in the same order as Square's input. */
   line_items: LineItem[];
-  /** Square line UID per engine line — for caller-side correlation. */
+  /** Square line UID per engine line â€” for caller-side correlation. */
   squareUids: Array<string | undefined>;
   /** UIDs of lines we skipped because they had no resolvable amount. */
   skippedUnpriced: string[];
@@ -24,18 +24,18 @@ export interface ExtractedLines {
  * Convert Square order line_items to engine line_items.
  *
  * Rules:
- *   - Money currency must be `USD` (or unset — Square frequently omits
+ *   - Money currency must be `USD` (or unset â€” Square frequently omits
  *     currency on individual lines and reports it only on `total_money`).
- *     If any line has currency != USD → throw `NonUSDError`.
+ *     If any line has currency != USD â†’ throw `NonUSDError`.
  *   - Amount: prefer `total_money.amount` if present (already
  *     quantity-multiplied by Square). Else `base_price_money.amount *
  *     quantity`. Else `variation_total_price_money.amount`.
  *   - Quantity comes off `line_items[i].quantity` (a string per
- *     Square's API). Default 1; non-finite or ≤0 → skip.
- *   - Lines with no resolvable amount are skipped (not an error) — they
+ *     Square's API). Default 1; non-finite or â‰¤0 â†’ skip.
+ *   - Lines with no resolvable amount are skipped (not an error) â€” they
  *     show up in `skippedUnpriced` so the caller can audit.
- *   - Category resolved via `options.categoryByCatalogObjectId` → fall
- *     through to `options.defaultCategory` → fall through to `'general'`.
+ *   - Category resolved via `options.categoryByCatalogObjectId` â†’ fall
+ *     through to `options.defaultCategory` â†’ fall through to `'general'`.
  */
 export function extractOrderLines(
   order: SquareOrder,
@@ -128,7 +128,7 @@ function parseQuantity(raw: string | undefined): number {
 }
 
 function resolveAmountCents(line: SquareLineItem, quantity: number): number | null {
-  // Square's `total_money` is base × quantity already; prefer it.
+  // Square's `total_money` is base Ã— quantity already; prefer it.
   const total = toCents(line.total_money?.amount);
   if (total !== null) return total;
 

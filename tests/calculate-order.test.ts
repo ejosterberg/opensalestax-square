@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0 OR GPL-2.0-or-later
 
 import nock from 'nock';
 
@@ -169,7 +169,7 @@ describe('calculateForSquareOrder', () => {
       const a = await calculateForSquareOrder(order, client);
       const b = await calculateForSquareOrder(order, client);
       expect(a).toEqual(b);
-      // If the cache didn't fire, nock would 404 the second call → mismatch.
+      // If the cache didn't fire, nock would 404 the second call â†’ mismatch.
       expect(nock.isDone()).toBe(true);
     });
 

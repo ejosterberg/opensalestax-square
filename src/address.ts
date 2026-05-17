@@ -1,18 +1,18 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0 OR GPL-2.0-or-later
 
 import { MissingAddressError } from './errors';
 import { isValidZip, normalizeZip } from './gates';
 import type { SquareAddress, SquareInvoice, SquareOrder } from './types';
 
 /**
- * Resolved shipping address — country + 5-digit ZIP. The library uses
+ * Resolved shipping address â€” country + 5-digit ZIP. The library uses
  * destination-based tax (Square POS in-person origin-based tax is out
  * of v0.1 scope per the spec).
  */
 export interface ResolvedAddress {
   countryUpper: string;
   zip5: string;
-  /** Raw address chosen — populated when we found a candidate but it didn't pass gates. */
+  /** Raw address chosen â€” populated when we found a candidate but it didn't pass gates. */
   source: 'order_fulfillment' | 'invoice_primary_recipient';
 }
 
@@ -22,7 +22,7 @@ export interface ResolvedAddress {
  * Priority:
  *   1. The first SHIPMENT-typed fulfillment with a recipient address
  *      and postal code.
- *   2. The first fulfillment with a recipient address (any type) — for
+ *   2. The first fulfillment with a recipient address (any type) â€” for
  *      callers who don't tag fulfillment.type.
  *
  * Returns `null` if no candidate address can be found.

@@ -23,8 +23,8 @@ for their contributions.
 
 ## License
 
-By contributing, you agree your contribution is licensed under
-Apache-2.0 (see `LICENSE`).
+By contributing, you agree your contribution is dual-licensed under
+your choice of Apache-2.0 OR GPL-2.0-or-later (see `LICENSE`).
 
 ## Branching model
 
@@ -46,7 +46,7 @@ This runs lint, type check, tests, and `npm audit --omit=dev
 
 - TypeScript strict mode; no `any` without an inline justification
   comment
-- SPDX header (`// SPDX-License-Identifier: Apache-2.0`) on every
+- SPDX header (`// SPDX-License-Identifier: Apache-2.0 OR GPL-2.0-or-later`) on every
   source file
 - JSDoc on every exported function / class
 - Structured logging only — never log customer addresses, product

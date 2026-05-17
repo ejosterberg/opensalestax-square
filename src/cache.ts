@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0 OR GPL-2.0-or-later
 
 import { createHash } from 'node:crypto';
 
@@ -31,7 +31,7 @@ const DEFAULT_MAX_ENTRIES = 500;
 export class InMemoryLruCache<V> implements CacheLike<V> {
   private readonly maxEntries: number;
   private readonly ttlMs: number;
-  // Map iteration order in JS is insertion-order → cheap LRU by re-set.
+  // Map iteration order in JS is insertion-order â†’ cheap LRU by re-set.
   private readonly entries = new Map<string, Entry<V>>();
 
   constructor(options: { maxEntries?: number; ttlMs?: number } = {}) {
@@ -67,7 +67,7 @@ export class InMemoryLruCache<V> implements CacheLike<V> {
     });
   }
 
-  /** Internal — exposed for tests. */
+  /** Internal â€” exposed for tests. */
   size(): number {
     return this.entries.size;
   }
@@ -77,9 +77,9 @@ export class InMemoryLruCache<V> implements CacheLike<V> {
  * Build a stable cache key from the engine request parameters.
  *
  * SHA-256 over the JSON-canonical encoding, truncated to 32 hex chars
- * (128 bits — more than enough collision resistance for this use case).
- * SHA-256 is used purely for collision resistance on a cache key — not
- * for any auth / integrity purpose — so the choice of hash algorithm
+ * (128 bits â€” more than enough collision resistance for this use case).
+ * SHA-256 is used purely for collision resistance on a cache key â€” not
+ * for any auth / integrity purpose â€” so the choice of hash algorithm
  * doesn't carry security weight.
  */
 export function buildCacheKey(

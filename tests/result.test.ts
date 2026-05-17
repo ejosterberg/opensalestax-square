@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0 OR GPL-2.0-or-later
 
 import { buildResult, buildSkippedResult, CALCULATION_DISCLAIMER } from '../src/result';
 import type { CalculationResult } from '@ejosterberg/opensalestax';
